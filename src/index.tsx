@@ -1,24 +1,11 @@
-import { Accessor, Component, createComputed, createSignal } from 'solid-js'
+import Cropper, { CropperProps } from './Cropper'
+import {
+  getInitialCropFromCroppedAreaPixels,
+  getInitialCropFromCroppedAreaPercentages,
+} from './helpers'
 
-export function createHello(): [Accessor<string>, (to: string) => void] {
-  const [hello, setHello] = createSignal('Hello World!')
+export * from './types'
 
-  return [hello, (to: string) => setHello(`Hello ${to}!`)]
-}
-
-export const Hello: Component<{ to?: string }> = props => {
-  const [hello, setHello] = createHello()
-
-  // This will only log during development, console is removed in production
-  console.log('Hello World!')
-
-  createComputed(() => {
-    if (typeof props.to === 'string') setHello(props.to)
-  })
-
-  return (
-    <>
-      <div>{hello()}</div>
-    </>
-  )
-}
+export { getInitialCropFromCroppedAreaPixels, getInitialCropFromCroppedAreaPercentages }
+export type { CropperProps }
+export default Cropper
